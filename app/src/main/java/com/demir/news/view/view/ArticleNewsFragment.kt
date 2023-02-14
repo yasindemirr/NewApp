@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebSettings
 import android.webkit.WebViewClient
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -53,6 +54,15 @@ class ArticleNewsFragment : Fragment() {
          binding.webView.apply {
             webViewClient= WebViewClient()
             loadUrl(article.url)
+        }
+        binding.webView.settings.apply {
+            textZoom=100
+            loadsImagesAutomatically=true
+            displayZoomControls=false
+            setSupportZoom(false)
+            cacheMode=WebSettings.LOAD_DEFAULT
+            blockNetworkImage=false
+
         }
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
