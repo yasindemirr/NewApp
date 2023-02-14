@@ -47,9 +47,9 @@ private val apiService= ApiServive
             }
         }
     }
-    fun searchNews(countryCode: String)=viewModelScope.launch {
+    fun searchNews(searchQuery: String)=viewModelScope.launch {
         loading.value=true
-        val response=apiService.searchNews(countryCode,searchPackage)
+        val response=apiService.searchNews(searchQuery,searchPackage)
         if (response.isSuccessful){
             response.body()?.let {
                 showsSearchResponse(it)
@@ -74,8 +74,8 @@ private val apiService= ApiServive
 
     }
 
-    fun saveArticles(article: Article)=viewModelScope.launch {
-        repository.saveArticles(article)
+    fun upsertArticles(article: Article)=viewModelScope.launch {
+        repository.upsertArticles(article)
         //db.Upsert(article)
     }
     fun getSavedArticle()=

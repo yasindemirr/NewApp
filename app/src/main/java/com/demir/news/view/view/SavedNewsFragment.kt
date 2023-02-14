@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 class SavedNewsFragment() : Fragment() {
     private lateinit var binding: FragmentSavedNewsBinding
     private lateinit var viewModel: NewsViewModel
+    private lateinit var toolbar: Toolbar
     private val newsAdepter = ArticleAdepter()
 
 
@@ -46,6 +48,9 @@ class SavedNewsFragment() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        toolbar= view.findViewById(R.id.toolBarSave)
+        toolbar.title="Saved News"
+        binding.toolBarSave.back.visibility=View.GONE
         viewModel=ViewModelProvider(this).get(NewsViewModel::class.java)
         binding.rvSavedNews.apply {
             this.adapter = newsAdepter
@@ -78,7 +83,7 @@ class SavedNewsFragment() : Fragment() {
                 viewModel.deleteArticles(article)
                 Snackbar.make(view,"Deleted article successfully",Snackbar.LENGTH_SHORT).apply {
                     setAction("undo"){
-                        viewModel.saveArticles(article)
+                        viewModel.upsertArticles(article)
                     }
                     show()
                 }
@@ -95,14 +100,14 @@ class SavedNewsFragment() : Fragment() {
     fun observeSaveData(){
        viewModel.getSavedArticle().observe(viewLifecycleOwner, Observer {
             it?.let {
-                newsAdepter.differ.submitList(it)
+               newsAdepter.differ.submitList(it)
 
             }
+
         })
 
 
 
     }
-
 
 }

@@ -21,7 +21,7 @@ import com.demir.news.view.view.model.Article
 
      private val differCallback = object : DiffUtil.ItemCallback<Article>() {
          override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
-             return oldItem.url == newItem.url
+             return oldItem.author == newItem.author
          }
 
          override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {

@@ -71,7 +71,7 @@ class SearchNewsFragment : Fragment() {
 
                 editable?.let {
                     if (editable.toString().isNotEmpty()){
-                        viewModel.searchNews(editable.toString())
+                        viewModel.searchNews(editable.toString().trim())
                     }
 
                 }
@@ -86,32 +86,6 @@ class SearchNewsFragment : Fragment() {
                 newsAdepter.differ.submitList(it.articles)
             }
         })
-        viewModel.loading.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it){
-                    binding.paginationProgressBar.visibility=View.VISIBLE
-
-                }
-
-            }
-        })
-        viewModel.error.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                if (it){
-
-                    Log.e(TAG,"AN ERROR OCURED")
-
-                }
-
-            }
-
-        })
-
-
 
     }
-
-
-
-
 }

@@ -8,7 +8,7 @@ import com.demir.news.view.view.model.Article
 
 class Repository(private  val dao :ArticleDao){
 
-    suspend fun saveArticles(article: Article)=dao.Upsert(article)
+    suspend fun upsertArticles(article: Article)=dao.Upsert(article)
     suspend fun deleteArticles(article: Article)=dao.deleteArticles(article)
     fun getSaveArticles()=dao.getAllArticle()
 }
